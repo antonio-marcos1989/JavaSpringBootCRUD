@@ -2,6 +2,8 @@ package com.example.unifor.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "Users")
 public class User {
@@ -12,6 +14,8 @@ public class User {
     private String name;
     private String email;
 
+    @OneToMany(mappedBy = "user")
+    private List<Address> address;
 
     public Long getId() {
         return id;
