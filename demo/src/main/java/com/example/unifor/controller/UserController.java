@@ -33,7 +33,14 @@ public class UserController {
         return userService.saveUser(user);
     }
 
-    // @PutMapping
+    @PutMapping("/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user){
+        try {
+            return new ResponseEntity<>(userService.updateUser(id, user), HttpStatus.OK);
+        } catch (RuntimeException e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id){

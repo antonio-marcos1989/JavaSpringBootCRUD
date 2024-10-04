@@ -26,7 +26,14 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    // Implementar updateUser()
+    public User updateUser(Long id, User updateUser) {
+        return userRepository.findById(id)
+                .map(user -> {
+                    user.setName(updateUser.getName());
+                    user.setEmail(updateUser.getEmail());
+                    return userRepository.save(user);
+                }).orElseThrow(() -> new RuntimeException("User not found!"));
+    }
 
     public void deleteUser(Long id){
         userRepository.deleteById(id);
