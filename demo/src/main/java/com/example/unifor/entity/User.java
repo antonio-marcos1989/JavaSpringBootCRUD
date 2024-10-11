@@ -2,7 +2,9 @@ package com.example.unifor.entity;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "Users")
@@ -16,6 +18,14 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Address> address;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable (
+            name = "user_skill",
+            joinColumns = @JoinColumn(name = "id_user"),
+            inverseJoinColumns = @JoinColumn(name = "id_skill")
+    )
+    private Set<Skill> skills = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -39,5 +49,21 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<Address> getAddress() {
+        return address;
+    }
+
+    public void setAddress(List<Address> address) {
+        this.address = address;
+    }
+
+    public Set<Skill> getSkills() {
+        return skills;
+    }
+
+    public void setSkills(Set<Skill> skills) {
+        this.skills = skills;
     }
 }

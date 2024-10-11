@@ -1,6 +1,8 @@
 package com.example.unifor.service;
 
+import com.example.unifor.entity.Skill;
 import com.example.unifor.entity.User;
+import com.example.unifor.repository.SkillRepository;
 import com.example.unifor.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,8 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private SkillRepository skillRepository;
 
     public List<User> findAllUsers(){
         return userRepository.findAll();
@@ -37,6 +41,14 @@ public class UserService {
 
     public void deleteUser(Long id){
         userRepository.deleteById(id);
+    }
+
+    public User addSkillToUser(Long userId, Long skillId){
+        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+        Skill skill = skillRepository.findById(skillId).orElseThrow(() -> new RuntimeException("Skill not found"));
+        user.getSkills().add(skill);
+        return userRepository.save(user);
+
     }
 
 }

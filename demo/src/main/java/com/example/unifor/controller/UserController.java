@@ -48,4 +48,10 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @PostMapping("/{userId}/skills/{skillId}")
+    public ResponseEntity<User> addSkillToUser(@PathVariable Long userId, @PathVariable Long skillId){
+        User user = userService.addSkillToUser(userId, skillId);
+        return ResponseEntity.ok(user);
+    }
+
 }
