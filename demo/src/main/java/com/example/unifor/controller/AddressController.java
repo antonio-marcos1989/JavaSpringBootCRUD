@@ -4,6 +4,7 @@ import com.example.unifor.entity.Address;
 import com.example.unifor.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,7 +33,14 @@ public class AddressController {
         return addressService.saveAddress(address);
     }
 
-    // @PutMapping("/{id}")
+    @PutMapping("/{id}")
+    public ResponseEntity<Address> updateAddress(@PathVariable Long id, @RequestBody Address updateAddress){
+        try {
+            return new ResponseEntity<>(addressService.updateAddress(id, updateAddress), HttpStatus.OK);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteAddress(@PathVariable Long id){
