@@ -1,5 +1,6 @@
 package com.example.unifor.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
@@ -26,6 +27,9 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "id_skill")
     )
     private Set<Skill> skills = new HashSet<>();
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private UserProfile userProfile;
 
     public Long getId() {
         return id;
@@ -65,5 +69,13 @@ public class User {
 
     public void setSkills(Set<Skill> skills) {
         this.skills = skills;
+    }
+
+    public UserProfile getUserProfile() {
+        return userProfile;
+    }
+
+    public void setUserProfile(UserProfile userProfile) {
+        this.userProfile = userProfile;
     }
 }
