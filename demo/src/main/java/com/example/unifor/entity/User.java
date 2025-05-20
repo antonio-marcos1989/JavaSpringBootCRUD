@@ -27,6 +27,7 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "id_skill")
     )
     private Set<Skill> skills = new HashSet<>();
+
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnore
     private UserProfile userProfile;

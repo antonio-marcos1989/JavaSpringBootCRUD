@@ -9,6 +9,7 @@ public class UserProfile {
     private Long id;
     private String bio;
     private String phoneNumber;
+
     @OneToOne
     @JoinColumn(name = "id_user")
     private User user;
